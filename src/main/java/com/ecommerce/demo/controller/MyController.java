@@ -12,7 +12,10 @@ public class MyController {
 	public String webView() {
 		return "login";
 	}
-	
+	@GetMapping("/hello")
+	public String hello() {
+		return "Hello World";
+	}
 	 
 	
 }
