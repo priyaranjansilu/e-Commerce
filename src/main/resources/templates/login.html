@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Yinka Enoch Adedokun">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <title>Login Page</title>
+</head>
+
+<body>
+    <div class="login-container">
+        <div class="login-left">
+            <img th:src="@{/img/7835563.png}" alt="Company Logo">
+            <h3>Online Shopping</h3>
+        </div>
+        <div class="login-right">
+            <h2>Log In</h2>
+            <form id="loginForm" th:action="@{/api/login}" method="post">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" placeholder="Enter your username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                </div>
+                <div class="form-group remember-me">
+                    <input type="checkbox" id="remember" name="remember">
+                    <label for="remember">Remember Me!</label>
+                </div>
+                <button type="submit">Submit</button>
+            </form>
+            <p>Don't have an account? <a th:href="@{/register}">Register Here</a></p>
+            <p id="error-message" style="color: red; display: none;">Invalid username or password. Please try again.</p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("loginForm").addEventListener("submit", async function (event) {
+            event.preventDefault(); // Prevent default form submission
+            
+            const formData = new FormData(event.target);
+            const data = {
+                username: formData.get("username"),
+                password: formData.get("password")
+            };
+
+            try {
+                const response = await fetch(event.target.action, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                    body: new URLSearchParams(data)
+                });
+
+                const message = await response.text();
+
+                if (message === "success") {
+                    // Redirect to newpage.html on successful login
+                    window.location.href = "/newpage";
+                } else {
+                    // Show error message
+                    document.getElementById("error-message").style.display = "block";
+                }
+            } catch (error) {
+                console.error("Error during login:", error);
+                document.getElementById("error-message").textContent = "An error occurred. Please try again.";
+                document.getElementById("error-message").style.display = "block";
+            }
+        });
+    </script>
+</body>
+</html>
