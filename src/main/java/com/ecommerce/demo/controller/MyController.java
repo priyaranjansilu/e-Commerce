@@ -24,6 +24,7 @@ public class MyController {
 	        return "newpage"; 
 	    }
 	
+	 
 	//hello
 	 // nice hello
 	 //silu
