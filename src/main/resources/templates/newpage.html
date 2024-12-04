@@ -11,8 +11,8 @@
         <div class="header">
             <div class="logo"><a href="#"><img th:src="@{/img/7835563.png}" alt=""></a></div>
             <div id="searchbar">
-                <input type="text" placeholder="search for a product">
-                <button name="search" onclick="addFilter(0,'')">search</button>
+                <input type="text" id="search-bar" placeholder="Search for a product..." onkeyup="filterItems()">
+                <button name="search">search</button>
             </div>
             <div id="cart"><i class="fas fa-shopping-cart"></i></div>
         </div>
@@ -25,111 +25,81 @@
             <div class="filterItem" id="software" onclick="addFilter(this.id, 'software');">Softwares</div>
             <div class="filterItem" id="accessories" onclick="addFilter(this.id, 'accessories');">Accessories</div>
         </sidebar>
-        <div id="articles">
-           <div id="articlesHeader">
-               <h2>ALL: <span id="count">0 results</span></h2>
-           </div>
-        </div>
+        
+		<div id="articles">
+		    <div id="articlesHeader">
+		        <h2>ALL: <span id="count">3 results</span></h2>
+		    </div>
+		    <div class="items">
+		        <!-- Item 1 -->
+		        <div class="item">
+		            <img src="img/smartphone.jpg" alt="Smartphone">
+		            <h3>Smartphone</h3>
+		            <p>$499</p>
+		            <button class="add-to-cart">Add to Cart</button>
+		        </div>
+		        <!-- Item 2 -->
+		        <div class="item">
+		            <img src="img/laptop.jpg" alt="Laptop">
+		            <h3>Laptop</h3>
+		            <p>$999</p>
+		            <button class="add-to-cart">Add to Cart</button>
+		        </div>
+		        <!-- Item 3 -->
+		        <div class="item">
+		            <img src="img/console.jpg" alt="Gaming Console">
+		            <h3>Gaming Console</h3>
+		            <p>$399</p>
+		            <button class="add-to-cart">Add to Cart</button>
+		        </div>
+				<div class="item">
+					<img src="img/console.jpg" alt="Gaming Console">
+					<h3>Gaming Console</h3>
+					<p>$399</p>
+					<button class="add-to-cart">Add to Cart</button>
+				</div>
+				<div class="item">
+					<img src="img/console.jpg" alt="Gaming Console">
+					<h3>Gaming Console</h3>
+					<p>$399</p>
+					<button class="add-to-cart">Add to Cart</button>
+				</div>
+		    </div>
+		</div>
+
         <script src="https://kit.fontawesome.com/af9153f612.js" crossorigin="anonymous"></script>
-        <script src="index.js"></script>
+        <script>
+			function filterItems() {
+			    let input = document.getElementById('search-bar').value.toLowerCase();
+			    let items = document.getElementsByClassName('item');
+			    let visibleCount = 0; // To track visible items count
+
+			    for (let i = 0; i < items.length; i++) {
+			        let item = items[i];
+			        let title = item.getElementsByTagName('h3')[0].innerText.toLowerCase();
+
+			        if (title.indexOf(input) > -1) {
+			            item.style.display = "";
+			            visibleCount++;
+			        } else {
+			            item.style.display = "none";
+			        }
+			    }
+
+			    // Update the result count
+			    document.getElementById('count').innerText = `${visibleCount} results`;
+			}
+			function countInitialItems() {
+			    let items = document.getElementsByClassName('item'); // Get all items
+			    let initialCount = items.length; // Count the items
+			    document.getElementById('count').innerText = `${initialCount} results`; // Update the count in the header
+			}
+
+			// Call the function when the page loads
+			document.addEventListener('DOMContentLoaded', countInitialItems);
+
+
+		</script>
     </div>
-	<script>
-		let tags = [];
-		let searchValue = "";
-		const searchInput = document.querySelector("#searchbar input");
-		function sendReq(){
-		    let articleCount = 0;
-		    let req = new XMLHttpRequest();
-		    let productsObj;
-		    req.open("GET", "https://api.jsonbin.io/b/5eeed62ce2ce6e3b2c7694c4", true);
-		    req.setRequestHeader("secret-key", "$2b$10$ptGdR0dKQtxShSrN5gdT6.yiUNni0iXoz9cW7uO22sZSkWQ4mSSZe");
-		    req.send(); 
-		    req.onload = () =>{
-		        if (req.readyState == XMLHttpRequest.DONE) {
-		            productsObj = JSON.parse(req.responseText);
-		            removeAllArticles();
-		            for(let i = 1;i<Object.keys(productsObj).length;i++){
-		                if((tags.length === 0 || tags.includes(productsObj[i]['tags'])) && (productsObj[i]['name'].toUpperCase().includes(searchValue.toUpperCase()) || productsObj[i]['tags'].toUpperCase().includes(searchValue.toUpperCase()))){
-		                    addArticle(productsObj[i]);
-		                    articleCount++;
-		                }
-		            }   
-		        }
-		        updateArticleHeader(articleCount);  
-		    };
-		}
-		sendReq();
-
-		searchInput.addEventListener("change", function(){
-		    searchValue = searchInput.value;
-		    sendReq();
-		});
-
-		function addFilter(id,str)
-		{
-		    searchValue = searchInput.value;
-		    if(!id){
-		        sendReq(); 
-		        return;
-		    }   
-		    if(tags.includes(str))
-		    {
-		        tags = tags.filter(e => e !== str);
-		        document.getElementById(id).style.color = "black";
-		      document.getElementById(id).style.fontWeight = "100"; 
-		    }    
-		    else
-		    {
-		     document.getElementById(id).style.fontWeight = "1000";  document.getElementById(id).style.color = "#00adef";
-		        tags.push(str);
-		    }  
-		    sendReq();
-		}
-
-		function updateArticleHeader(resultCount){
-		    const articlesHeader = document.querySelector("#articlesHeader h2");
-		    if(tags.length === 0){
-		        articlesHeader.innerHTML="ALL: ";
-		    }
-		    else{
-		        articlesHeader.innerHTML ="";
-		        for(var i=0;i<tags.length - 1;i++)
-		            articlesHeader.innerHTML+=tags[i] + ", ";
-		        articlesHeader.innerHTML+=tags[i] + ": ";
-		    }
-		    let articleCountNode = document.createElement("span");
-		    articleCountNode.setAttribute('id','count');
-		    articleCountNode.appendChild(document.createTextNode(resultCount + " results"));
-		    articlesHeader.appendChild(articleCountNode);
-		}
-
-		function removeAllArticles(){
-		    var element = document.getElementsByTagName("article"), index;
-		    for (index = element.length - 1; index >= 0; index--) {
-		        element[index].parentNode.removeChild(element[index]);
-		    }
-		}
-
-		function addArticle(article){
-		    let articleNode = document.createElement("article");
-		    let articleImgNode = document.createElement("img");
-		    let articleDescNode = document.createElement("div");
-		    let articleName = document.createElement("h3");
-		    let articlePrice = document.createElement("p");
-		    articleImgNode.setAttribute('src', article["img"]);
-		    articleImgNode.setAttribute('class','articleImage');
-		    articleDescNode.setAttribute('class','articleDescription');
-		    articleName.setAttribute('class','articleName');
-		    articlePrice.setAttribute('class','articlePrice');
-		    articleName.appendChild(document.createTextNode(article["name"]));
-		    articlePrice.appendChild(document.createTextNode(article["price"]));
-		    articleDescNode.appendChild(articleName);
-		    articleDescNode.appendChild(articlePrice);
-		    articleNode.appendChild(articleImgNode);
-		    articleNode.appendChild(articleDescNode);
-		    document.getElementById("articles").appendChild(articleNode);
-		}
-		
-	</script>
 </body>
 </html>
