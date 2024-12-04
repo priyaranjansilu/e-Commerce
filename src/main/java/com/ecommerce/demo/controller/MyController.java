@@ -24,6 +24,9 @@ public class MyController {
 	        return "newpage"; 
 	    }
 	
-	
+	@GetMapping("/cart")
+	public String cart() {
+		return "cart";
+	}
 	
 }
