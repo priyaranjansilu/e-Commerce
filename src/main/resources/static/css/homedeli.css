@@ -1,0 +1,133 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+body{
+        background: #e7e7e7;
+}
+
+.header{
+    display: flex;
+    position: relative;
+    justify-content: space-between;
+    background: #fff;
+    box-shadow: 0px 0px 10px 2px rgba(0,0,0,0.56);
+
+}
+
+.logo img{
+    padding-left: 10px;
+    width: 80px;
+    height: 60px;
+}
+#searchbar{
+    height: 34px;
+    padding: 15px 0px 0px 100px;
+    flex-grow: 1;
+    
+}
+#searchbar input{
+    height: 30px;
+    padding-left: 3px;
+    width: 350px;
+    
+}
+#searchbar button{
+    height: 34px;
+    width: 120px;
+    border: none;
+    background: #00adef;
+    color: white;
+    border-radius: 3px;
+    font-size: 17px;
+  outline : none;
+}
+#searchbar button:active{
+  background: #0078a6;
+}
+
+#cart{
+    font-size: 25px;
+    height: 64px;
+    width: 64px;
+    line-height: 64px;
+    text-align: center;
+}
+#classFilter{
+    position: relative;
+    background-color: white;
+    padding-bottom: 15px;
+    width:25%;
+    margin: 20px; 
+    display: inline-block;
+    font-family: 'Noto Sans JP', sans-serif;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    box-shadow: 0px 3px 5px 1px rgba(0,0,0,0.56);
+    float: left;
+}
+.filterHeader{
+    font-weight: bolder;
+    padding: 10px 0px 15px 10px;
+    border-bottom: 2px solid #0087ba;
+    border-left: 2px solid #0087ba;
+    background: #00adef;
+    color: white;
+    
+    
+    
+}
+.filterItem{
+    padding-left: 25px;
+    height: 45px;
+    line-height: 45px;
+    cursor: pointer;
+}
+#articles{
+    background: #fff;
+    width: 65%;
+    margin: 20px 0px 20px 30px;
+    float: left;
+    box-shadow: 0px 3px 5px 1px rgba(0,0,0,0.56);
+    border-radius: 5px;
+    display: flex;
+    padding: 5px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    font-family: 'Noto Sans JP', sans-serif;
+}
+#articles article{
+    margin: 10px;
+    width: 30%;
+    height: 325px;
+    padding-top: 10px; 
+    position: relative;
+    border-radius: 3px;
+}
+#articlesHeader{
+    width: 100%;
+    
+    padding: 10px 0px 10px 10px;
+    border-bottom: 2px solid #aaa;
+}
+#articlesHeader #count{
+    font-size: 15px;
+    color: #ccc;
+}
+article .articleImage{
+    width: 90%;
+    height: 65%;
+    margin: 0 auto;
+    background-color: #efefef;
+    position: absolute;
+    transform: translateX(-50%);
+    left: 50%;
+}
+.articleDescription{
+    position: absolute;
+    bottom: 20px;
+    left: 10px;
+}
+#articles article:hover{
+    box-shadow: 0px 3px 5px 1px rgba(0,0,0,0.56);
+}
