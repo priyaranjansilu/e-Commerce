@@ -3,6 +3,7 @@ package com.ecommerce.demo.controller;
 //package com.ecommerce.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import com.ecommerce.demo.model.User;
@@ -32,5 +33,11 @@ public class UserController {
         }
         return "Invalid username or password!";
     }
+
+    @GetMapping("/user")
+    public User getSessionUser(HttpSession session) {
+        return (User) session.getAttribute("user");
+    }
+
 }
 
