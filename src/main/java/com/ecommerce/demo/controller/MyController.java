@@ -8,7 +8,7 @@ public class MyController {
 	
 	@GetMapping("/")
 	public String webView() {
-		return "login";
+		return "welcompage";
 	}
 	@GetMapping("/login")
 	public String login() {
@@ -43,5 +43,14 @@ public class MyController {
         return "contributors"; // Render payment.html
     }
 	
+	@GetMapping("/admin")
+    public String Admin() {
+        return "admin"; // Render payment.html
+    }
+	
+	@GetMapping("/dashbord")
+    public String dashboard() {
+        return "dashbord"; // Render payment.html
+    }
 	
 }
