@@ -28,5 +28,9 @@ public class MyController {
 	public String cart() {
 		return "cart";
 	}
+	@GetMapping("/payment")
+    public String paymentPage() {
+        return "paymentpage"; // Render payment.html
+    }
 	
 }

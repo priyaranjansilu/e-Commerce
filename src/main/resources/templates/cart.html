@@ -38,6 +38,7 @@
             const cartItemsContainer = document.getElementById('cart-items');
             const totalItemsElement = document.getElementById('total-items');
             const totalPriceElement = document.getElementById('total-price');
+			const checkoutButton = document.getElementById('checkout-button');
 
             fetch('/cart/items')
                 .then(response => response.json())
@@ -100,6 +101,9 @@
                         console.error('Error deleting item:', error);
                     });
             }
+			checkoutButton.addEventListener('click', () => {
+			                window.location.href = '/payment'; // Redirect to payment page
+			            });
         });
     </script>
 </body>
