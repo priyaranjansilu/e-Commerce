@@ -162,6 +162,21 @@
                 .then(response => {
                     if (response.ok) {
                         responseMessage.textContent = 'Payment Successful!';
+						fetch('/cart/clear', {
+						                    method: 'DELETE',
+						                })
+						                .then(clearResponse => {
+						                    if (clearResponse.ok) {
+						                        alert('Cart is now empty.');
+												window.location.href = '/paymentsuccess';
+												 
+													} else {
+						                        alert('Failed to clear the cart.');
+						                    }
+						                })
+						                .catch(error => {
+						                    console.error('Error clearing the cart:', error);
+						                });
                         paymentForm.reset();
                     } else {
                         responseMessage.textContent = 'Payment Failed. Please try again.';

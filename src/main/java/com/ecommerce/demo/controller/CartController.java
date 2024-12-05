@@ -3,6 +3,7 @@ package com.ecommerce.demo.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,6 +37,16 @@ public class CartController {
     public ResponseEntity<Void> deleteCartItem(@PathVariable Long id) {
         cartService.deleteCartItem(id);
         return ResponseEntity.noContent().build();
+    }
+    
+    @DeleteMapping("/clear")
+    public ResponseEntity<String> clearCart() {
+        try {
+            cartService.clearCart();
+            return ResponseEntity.ok("Cart cleared successfully.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error clearing the cart.");
+        }
     }
 }
 

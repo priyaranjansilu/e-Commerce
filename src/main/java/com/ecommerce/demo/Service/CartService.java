@@ -31,4 +31,7 @@ public class CartService {
         cartRepository.deleteById(id);
     }
     
+    public void clearCart() {
+    	cartRepository.deleteAll();  // Delete all items from the cart
+    }
 }

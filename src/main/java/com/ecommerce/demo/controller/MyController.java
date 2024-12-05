@@ -33,4 +33,9 @@ public class MyController {
         return "paymentpage"; // Render payment.html
     }
 	
+	
+	@GetMapping("/paymentsuccess")
+    public String paymentSuccess() {
+        return "paymentSuccess"; // Render payment.html
+    }
 }

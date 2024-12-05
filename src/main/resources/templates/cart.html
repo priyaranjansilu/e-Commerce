@@ -48,6 +48,7 @@
 
                     if (items.length === 0) {
                         cartItemsContainer.innerHTML = '<p>Your cart is empty.</p>';
+						
                         return;
                     }
 
@@ -102,7 +103,15 @@
                     });
             }
 			checkoutButton.addEventListener('click', () => {
-			                window.location.href = '/payment'; // Redirect to payment page
+				const totalItemsElement = document.getElementById('total-items');
+				if(totalItemsElement.innerText==='0'){
+					alert('Add some item into cart')
+					window.location.href = '/newpage';
+					return;
+				}
+				else{
+			         window.location.href = '/payment'; // Redirect to payment page
+					}
 			            });
         });
     </script>
