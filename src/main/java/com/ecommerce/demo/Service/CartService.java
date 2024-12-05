@@ -1,5 +1,7 @@
 package com.ecommerce.demo.Service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,5 +21,13 @@ public class CartService {
         cartItem.setPrice(cartItemDto.getPrice());
         cartItem.setImagePath(cartItemDto.getImagePath());
         cartRepository.save(cartItem);
+    }
+    
+    public List<CartItem> getAllCartItems() {
+        return cartRepository.findAll();
+    }
+    
+    public void deleteCartItem(Long id) {
+        cartRepository.deleteById(id);
     }
 }
