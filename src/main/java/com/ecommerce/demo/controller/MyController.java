@@ -38,4 +38,10 @@ public class MyController {
     public String paymentSuccess() {
         return "paymentSuccess"; // Render payment.html
     }
+	@GetMapping("/contributors")
+    public String contributorsPage() {
+        return "contributors"; // Render payment.html
+    }
+	
+	
 }
