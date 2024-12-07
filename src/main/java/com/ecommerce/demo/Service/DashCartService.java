@@ -13,12 +13,16 @@ import com.ecommerce.demo.model.DashboardItem;
 import com.ecommerce.demo.model.DashcartitemDto;
 //import com.ecommerce.demo.repository.CartRepository;
 import com.ecommerce.demo.repository.DashCartRepository;
+import com.ecommerce.demo.repository.DashboardItemRepository;
 
 @Service
 public class DashCartService {
 
     @Autowired
     private DashCartRepository cartRepository;
+    
+    @Autowired
+    private DashboardItemRepository dashboardItemRepository;
 
     public void saveItem(DashcartitemDto dashcartItemDto) {
     	DashboardItem cartItem = new DashboardItem();
@@ -38,6 +42,9 @@ public class DashCartService {
     
     public void clearCart() {
     	cartRepository.deleteAll();  // Delete all items from the cart
+    }
+    public void removeItemByTitle(String title) {
+        dashboardItemRepository.deleteByTitle(title);
     }
 }
 
